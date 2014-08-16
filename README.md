@@ -1,4 +1,4 @@
 py
 ==
 
-python execrise
+just python execrise
