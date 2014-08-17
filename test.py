@@ -146,14 +146,6 @@ class Beautygirl(Girl):
 bg1 = Beautygirl('michelle', 'white, long')
 bg1.show()
 
-print '\n===== io test =======\n'
-
-#inputs = raw_input('what do you want?\n')
-#if  inputs in ['money', 'girl', 'happy']:
-    #print 'good idea'
-#else:
-    #print 'you wanna :', inputs
-
 mymod.wfile('./test.txt', '\n'.join([mymod.S]*3))
 print mymod.rfile('./test.txt')
 
@@ -180,16 +172,47 @@ print  io.open('./text_cn.txt',  encoding = 'utf-8').read()
 
 print '\n===== exception test =======\n'
 
-try:
-    inputs = raw_input('what do you want?\n')
-except (KeyboardInterrupt, EOFError):
-    print 'keyboardInterrupt or eofError'
-else:
-    print inputs
-finally:
-    print 'finally print, you will see it whatever'
+#try:
+    #inputs = raw_input('what do you want?\n')
+#except (KeyboardInterrupt, EOFError):
+    #print 'keyboardInterrupt or eofError'
+#else:
+    #print inputs
+#finally:
+    #print 'finally print, you will see it whatever'
 
 print '\n===== with test =======\n'
 with open('./test.txt') as f:
     for line in f:
         print line
+
+print '\n===== project euler test =======\n'
+x=0
+for k in range(100):
+    if  k % 3==0 or k%5 == 0:
+        x += k
+print x
+print sum(key for key in range(1,100) if key%3==0 or key%5==0)
+
+
+
+print '\n===== recursion test =======\n'
+
+def xsum(v):
+    #for 3 situation: define , structure
+    #boundary, exit
+    #condition
+    #rule
+    return 0 if v == 0 else xsum(v-1)+v
+
+#python r deepth should less thn 1000
+print xsum(100)
+
+def fib(v):
+    if v == 1 or v == 2:
+        return 1
+    else:
+        #the rule
+        return fib(v-2) + fib (v-1)
+
+print fib(5)
