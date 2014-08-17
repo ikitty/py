@@ -22,6 +22,15 @@ def rfile(f):
     rf.close()
     return text
 
+def wfile(f, content=''):
+    '''
+    A simple module for writting file
+    '''
+    rf = open(f, 'w')
+    rf.write(content)
+    rf.close()
+    print 'some content has been written'
+
 def wget(url):
     f = urllib.urlopen(url)
     return f.read()

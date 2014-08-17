@@ -148,12 +148,48 @@ bg1.show()
 
 print '\n===== io test =======\n'
 
-inputs = raw_input('what do you want?\n')
-if  inputs in ['money', 'girl', 'happy']:
-    print 'good idea'
-else:
-    print 'you wanna :', inputs
+#inputs = raw_input('what do you want?\n')
+#if  inputs in ['money', 'girl', 'happy']:
+    #print 'good idea'
+#else:
+    #print 'you wanna :', inputs
 
-f = open('./test.txt', 'w')
-f.write('hi txt')
+mymod.wfile('./test.txt', '\n'.join([mymod.S]*3))
+print mymod.rfile('./test.txt')
+
+
+print '\n===== pickle test =======\n'
+import pickle
+
+#use write and binary mode
+f = open('./temp.data', 'wb' )
+pickle.dump(mymod.D, f)
 f.close()
+
+f = open('./temp.data', 'rb' )
+getData = pickle.load(f)
+print getData
+
+print '\n===== unicode test =======\n'
+import io
+
+f = io.open('./text_cn.txt', 'wt', encoding = 'utf-8')
+f.write(u'origin ascii code, \u8000\u8001')
+f.close()
+print  io.open('./text_cn.txt',  encoding = 'utf-8').read()
+
+print '\n===== exception test =======\n'
+
+try:
+    inputs = raw_input('what do you want?\n')
+except (KeyboardInterrupt, EOFError):
+    print 'keyboardInterrupt or eofError'
+else:
+    print inputs
+finally:
+    print 'finally print, you will see it whatever'
+
+print '\n===== with test =======\n'
+with open('./test.txt') as f:
+    for line in f:
+        print line
