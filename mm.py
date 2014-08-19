@@ -31,9 +31,9 @@ def wfile(f, content=''):
     rf.close()
     print 'some content has been written'
 
-def wget(url):
-    f = urllib.urlopen(url)
+def wget(url, proxy=None):
+    f = urllib.urlopen(url, proxies = proxy )
     return f.read()
 
 if __name__ == '__main__':
-    print 'mymod ' , __version__
+    print 'mm ' , __version__

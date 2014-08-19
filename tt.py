@@ -1,11 +1,9 @@
 #!/usr/bin/python
 
-import mymod
+import mm
 
-print mymod.__name__
-print mymod.S
-print 'S is: {0}'.format(mymod.S)
-print 'S is: %s, age is : %d' % (mymod.S , 18)
+print 'S is: {0}'.format(mm.S)
+print 'S is: %s, age is : %d' % (mm.S , 18)
 
 print '{0:_^11}'.format('hello')
 print r'raw string\n'
@@ -41,28 +39,28 @@ varArg(10,1,2,3,a=1,b=2)
 
 #dir
 print '\n===== dir msg =======\n'
-print dir(mymod)
+print dir(mm)
 
 #dict 
 print '\n===== dict test =======\n'
-for key,value in mymod.D.items():
-#for key,value in mymod.D.iteritems():
+for key,value in mm.D.items():
+#for key,value in mm.D.iteritems():
     print key, value
 
 #get value by key
-for key,value in mymod.D.items():
+for key,value in mm.D.items():
     if  value == 25:
         print key
 
 print '\n===== slice test =======\n'
-print mymod.L[::2]
-print mymod.L[::3]
-print mymod.L[::-1]
+print mm.L[::2]
+print mm.L[::3]
+print mm.L[::-1]
 
 print '\n===== references test =======\n'
-ll = mymod.L
+ll = mm.L
 print ll
-del mymod.L[0]
+del mm.L[0]
 print ll
 
 lll = ll[:]
@@ -146,8 +144,8 @@ class Beautygirl(Girl):
 bg1 = Beautygirl('michelle', 'white, long')
 bg1.show()
 
-mymod.wfile('./test.txt', '\n'.join([mymod.S]*3))
-print mymod.rfile('./test.txt')
+mm.wfile('./test.txt', '\n'.join([mm.S]*3))
+print mm.rfile('./test.txt')
 
 
 print '\n===== pickle test =======\n'
@@ -155,7 +153,7 @@ import pickle
 
 #use write and binary mode
 f = open('./temp.data', 'wb' )
-pickle.dump(mymod.D, f)
+pickle.dump(mm.D, f)
 f.close()
 
 f = open('./temp.data', 'rb' )
@@ -216,3 +214,33 @@ def fib(v):
         return fib(v-2) + fib (v-1)
 
 print fib(5)
+
+print '\n===== temp test =======\n'
+#str = mm.rfile('./str.txt')
+
+proxies = {'http': 'http://proxy.tencent.com:8080'}
+
+url = 'http://www.pythonchallenge.com/pc/def/linkedlist.php'
+#url = 'http://www.baidu.com'
+#str = mm.wget(url, proxies);
+#print str
+
+### solution for linkedlist
+#import re
+#baseurl = 'http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing='
+#def testlinked(n):
+    #count = 0
+    #for key in range(401):
+        #count +=1 
+        #ss = mm.wget(baseurl + str(n), proxies)
+        #_find = re.search('\d+', ss)
+        #if _find:
+            #n = _find.group()
+            #print count, 'is', n
+        #else:
+            #print 'cannot find numer at :', n
+            #n = raw_input(ss)
+    #print 'loop to ', count
+
+#x = 16044
+#testlinked(x)
