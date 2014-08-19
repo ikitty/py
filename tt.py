@@ -244,3 +244,12 @@ url = 'http://www.pythonchallenge.com/pc/def/linkedlist.php'
 
 #x = 16044
 #testlinked(x)
+
+print '\n===== lambda test =======\n'
+#anonymous function
+_f = lambda x: x**2
+print _f(2)
+print map(lambda x: x**2, [1,2,3] )
+print map(lambda x: x > 1 and x**2 or x +1, [1,2,3] )
+print 1 and 'a' or 'b'
+print 'a'.isalpha()
