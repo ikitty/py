@@ -253,3 +253,23 @@ print map(lambda x: x**2, [1,2,3] )
 print map(lambda x: x > 1 and x**2 or x +1, [1,2,3] )
 print 1 and 'a' or 'b'
 print 'a'.isalpha()
+
+print '\n===== leetcode test =======\n'
+def strReverse(s = ''):
+    l = s.split(' ')
+    l.reverse()
+    return ''.join(l)
+print 'x' + strReverse(' 1') +'x'
+
+
+def reverseWords(s=''):
+    import re
+    s = s.strip()
+    s = re.sub(r'\s+', ' ',s)
+    if s == '':
+        return ''
+    else:
+        l = s.split(' ')
+        l.reverse()
+        return ' '.join(l).strip()
+print reverseWords('a bb   c')
