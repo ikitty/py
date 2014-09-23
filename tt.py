@@ -1,12 +1,13 @@
 #!/usr/bin/python
 
 import mm
+import pprint
 
-print 'S is: {0}'.format(mm.S)
-print 'S is: %s, age is : %d' % (mm.S , 18)
+#print 'S is: {0}'.format(mm.S)
+#print 'S is: %s, age is : %d' % (mm.S , 18)
 
-print '{0:_^11}'.format('hello')
-print r'raw string\n'
+#print '{0:_^11}'.format('hello')
+#print r'raw string\n'
 
 #global
 g=1
@@ -275,35 +276,60 @@ def reverseWords(s=''):
         return ' '.join(l).strip()
 print reverseWords('a bb   c')
 
-print '\n===== dir access test =======\n'
-
-import os
-def clearBadFile(folder = os.curdir):
-    #print os.path.abspath(folder)
-    #print os.curdir
-    #dirname() returns the first part of the split path:
-    #print os.path.dirname(folder)
-
-    print os.listdir(folder)
-
-    for dirname, dirnames, filenames in os.walk(folder):
-        #for subdirname in dirnames:
-            #print os.path.join(dirname, subdirname)
-
-        for filename in filenames:
-            if  '.DS_Store' != filename:
-                each_file = os.path.join(dirname, filename)
-                each_size = os.path.getsize(each_file)/1000
-                if  each_size < 100:
-                    os.remove(each_file)
-                    print each_file , ' has been deleted.'
+print '\n===== fetch img test =======\n'
 
 
-        # Advanced usage:
-        # editing the 'dirnames' list will stop os.walk() from recursing into there.
-        if '.git' in dirnames:
-            dirnames.remove('.git')
+def load_data(data_path = './x.data'):
+    f = open(data_path, 'rb' )
+    try:
+        result = pickle.load(f)
+        return result
+    except(EOFError):
+        print 'pickle.load error'
+        return False
 
-clearBadFile('./pic/')
+def save_data(data_path , data):
+    f = open(data_path, 'wb' )
+    pickle.dump(data, f)
+    f.close()
 
+import urllib, pickle
+myurl="http://www.pythonchallenge.com/pc/def/banner.p"
+handle= urllib.urlopen(myurl)
+object = pickle.load(handle)
+handle.close()
+for item in object:
+    print "".join(i[0] * i[1] for i in item) #print characters
+
+print '\n===== n-queens test =======\n'
+
+class Solution:
+    # @return a list of lists of string
+    def solveNQueens(self, n):
+        self.res = []
+        self.solve(n, 0, [-1 for i in xrange(n)])
+        return self.res
+     
+    def solve(self, n, currQueenNum, board):
+        if currQueenNum == n:
+            oneAnswer = [ ['.' for j in xrange(n)] for i in xrange(n) ]
+            for i in xrange(n): 
+                oneAnswer[i][board[i]] = 'Q'
+                oneAnswer[i] = ''.join(oneAnswer[i])
+            self.res.append(oneAnswer)
+            return
+        # try to put a Queen in (currQueenNum, 0), (currQueenNum, 1), ..., (currQueenNum, n-1)
+        for i in xrange(n):
+            valid = True  # test whether board[currQueenNum] can be i or not
+            for k in xrange(currQueenNum):
+                # check column
+                if board[k] == i: valid = False; break
+                # check dianogal
+                if abs(board[k] - i) == currQueenNum - k: valid = False; break
+            if valid:
+                board[currQueenNum] = i
+                self.solve(n, currQueenNum + 1, board)
+
+solution = Solution()
+print solution.solveNQueens(4)
 
