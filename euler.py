@@ -24,9 +24,9 @@ def Fib():
     print sum([i for i in orglist if i % 2 == 0])
 #Fib()
 
-print '\n===== x. find largest factor of a number =======\n'
+print '\n===== x. find largest Factor =======\n'
 hugeNo = 600851475143
-def factors(n):
+def findFactor(n):
     fs = []
     while n % 2 == 0:
         fs += [2]
@@ -40,11 +40,12 @@ def factors(n):
             n /= f
         else:
             f += 2
-    return fs + [n]
-x = factors(hugeNo)
-print x
+    resultArr = fs + [n]
+    print resultArr[-1]
+    #return resultArr[-1]
+#findFactor(hugeNo)
 
-def Euler3(n=600851475143):
+def findFactor2(n=600851475143):
     ret = []
     i = 2
     while n > 1:
@@ -56,8 +57,7 @@ def Euler3(n=600851475143):
             if n > 1 : ret.append(n)
             break
     return ret
-
-print Euler3(27)
+#print findFactor2()
 
 print '\n===== 5. find latest common multiple =======\n'
 
@@ -135,4 +135,61 @@ def getMutil(numList):
         result*=i
     return result
  
-print(getMutil(getLeastCommonMutible([8,12,20])))
+print(getMutil(getLeastCommonMutible([i for i in xrange(1,21)])))
+
+#by chris
+def getPrimeFactorOrg(n):
+    primfac = []
+    d = 2
+    while d*d <= n:
+        while (n % d) == 0:
+            primfac.append(d)
+            n /= d
+        d += 1
+    if n > 1:
+       primfac.append(n)
+    return primfac
+
+def getPrimeFactor(n):
+    primfac = {}
+    d = 2
+    while d*d <= n:
+        while (n % d) == 0:
+            #to opt 
+            dStr = str(d)
+            primfac[dStr] = (primfac[dStr] + 1) if dStr in primfac else  1
+            #if dStr in primfac:
+                #primfac[dStr] += 1
+            #else:
+                #primfac[dStr] = 1
+            n /= d
+        d += 1
+    if n > 1:
+       primfac[str(n)] = 1
+    return primfac
+
+def getLcm(seq):
+    primfacs = []
+    for i in seq:
+        primfacs.append(getPrimeFactor(i))
+
+    #print primfacs
+    ret = {}
+    for obj in primfacs:
+        for attr in obj:
+            if attr not in ret:
+                ret[attr] = obj[attr]
+            else:
+                if obj[attr] > ret[attr]:
+                    ret[attr] = obj[attr]
+
+    #todo use reduce and lambda
+    final = 1
+    for p in ret:
+        final *= math.pow(int(p), ret[p])
+
+    print int(final)
+
+#getLcm([12, 10, 30])
+getLcm([i for i in xrange(1,21)])
+    
