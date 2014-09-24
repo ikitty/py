@@ -127,8 +127,10 @@ def getMutil(numList):
     for i in numList:
         result*=i
     return result
- 
-print(getMutil(getLeastCommonMutible([i for i in xrange(1,100)])))
+
+#1,44 here is a  bug
+SEQ = [i for i in xrange(25,44)]
+print(getMutil(getLeastCommonMutible(SEQ)))
 
 #by chris
 def getPrimeFactor(n):
@@ -142,6 +144,7 @@ def getPrimeFactor(n):
         d += 1
     if n > 1:
        primfac[str(n)] = 1
+    #print primfac
     return primfac
 
 def getLcm(seq):
@@ -159,14 +162,23 @@ def getLcm(seq):
                 if obj[attr] > ret[attr]:
                     ret[attr] = obj[attr]
 
+    print ret
     #todo use reduce and lambda
     final = 1
+    #todo: why use int for math
     for p in ret:
-        final *= math.pow(int(p), ret[p])
+        final *= int(math.pow(int(p), ret[p]))
 
     print int(final)
 
-getLcm([i for i in xrange(1,101)])
+getLcm(SEQ)
+
+_d = {'11': 1, '13': 1, '17': 1, '19': 1,  '31': 1, '37': 1, '43':1, '29': 1, '41': 1, '3': 3, '2': 5, '5': 2, '7': 1}
+final = 1
+for p in _d:
+    final *= math.pow(int(p), _d[p])
+    
+print int(final)
 
 from timeit import timeit
 solutionChris = """
@@ -205,9 +217,9 @@ def getLcm(seq):
 
     return int(final)
 
-getLcm([i for i in xrange(1,100)])
+getLcm([i for i in xrange(1,21)])
 """
-print 'use_chris:', timeit(solutionChris,  number=100)
+#print 'use_chris:', timeit(solutionChris,  number=100)
     
 print '\n===== 5. find latest common multiple By Recursion =======\n'
 
@@ -229,8 +241,8 @@ def getLcmByRecursion(seq):
 
     print lcmAll(seq)
 
-seq = [i for i in xrange(1,11)]
-getLcmByRecursion(seq)
+seq = [i for i in xrange(1,31)]
+#getLcmByRecursion(seq)
 
 solution = '''
 def getLcmByRecursion(seq):
@@ -252,7 +264,7 @@ def getLcmByRecursion(seq):
 seq = [i for i in xrange(1,100)]
 getLcmByRecursion(seq)
 '''
-print 'use_recursion:', timeit(solution,  number=100)
+#print 'use_recursion:', timeit(solution,  number=100)
 
 print '\n===== x. check Palindrome =======\n'
 
