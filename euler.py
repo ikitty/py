@@ -128,7 +128,7 @@ def getMutil(numList):
         result*=i
     return result
  
-print(getMutil(getLeastCommonMutible([i for i in xrange(1,21)])))
+print(getMutil(getLeastCommonMutible([i for i in xrange(1,100)])))
 
 #by chris
 def getPrimeFactor(n):
@@ -166,7 +166,48 @@ def getLcm(seq):
 
     print int(final)
 
-getLcm([i for i in xrange(1,21)])
+getLcm([i for i in xrange(1,101)])
+
+from timeit import timeit
+solutionChris = """
+import math
+def getPrimeFactor(n):
+    primfac = {}
+    d = 2
+    while d*d <= n:
+        while (n % d) == 0:
+            dStr = str(d)
+            primfac[dStr] = (primfac[dStr] + 1) if dStr in primfac else  1
+            n /= d
+        d += 1
+    if n > 1:
+       primfac[str(n)] = 1
+    return primfac
+
+def getLcm(seq):
+    primfacs = []
+    for i in seq:
+        primfacs.append(getPrimeFactor(i))
+
+    #print primfacs
+    ret = {}
+    for obj in primfacs:
+        for attr in obj:
+            if attr not in ret:
+                ret[attr] = obj[attr]
+            else:
+                if obj[attr] > ret[attr]:
+                    ret[attr] = obj[attr]
+
+    final = 1
+    for p in ret:
+        final *= math.pow(int(p), ret[p])
+
+    return int(final)
+
+getLcm([i for i in xrange(1,100)])
+"""
+print 'use_chris:', timeit(solutionChris,  number=100)
     
 print '\n===== 5. find latest common multiple By Recursion =======\n'
 
@@ -190,6 +231,28 @@ def getLcmByRecursion(seq):
 
 seq = [i for i in xrange(1,11)]
 getLcmByRecursion(seq)
+
+solution = '''
+def getLcmByRecursion(seq):
+    def gcd(a, b):
+        r = a % b
+        if r:
+            return gcd(b, r)
+        else: 
+            return b
+
+    def lcm(a,b):
+        return a * b/ gcd(a,b)
+
+    def lcmAll(seq):
+        return reduce(lcm, seq)
+
+    lcmAll(seq)
+
+seq = [i for i in xrange(1,100)]
+getLcmByRecursion(seq)
+'''
+print 'use_recursion:', timeit(solution,  number=100)
 
 print '\n===== x. check Palindrome =======\n'
 
