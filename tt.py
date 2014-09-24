@@ -333,3 +333,19 @@ class Solution:
 solution = Solution()
 print solution.solveNQueens(4)
 
+print '\n===== hyphen2underline test =======\n'
+
+def hyphenTounderline(path = './index.htm'):
+    htmlStr = mm.rfile(path)
+    def rep(m):
+        #print m.group(0)
+        return m.group(0).replace('-', '_')
+
+    retStr = re.sub(r'(id|class)="[^"]*"', rep, htmlStr)
+    output = './index_output.htm'
+    mm.wfile(output, retStr )
+
+    #cssStr = mm.rfile('./style.css')
+    #retStr = re.sub(r'\.[^{\n]*{', rep, cssStr)
+    #output = './style_m.css'
+    #mm.wfile(output, retStr )
