@@ -63,9 +63,6 @@ print '\n===== 5. find latest common multiple =======\n'
 
 import math
 def isPrime(n):
-    """
-    
-    """
     if n==2:
         return True
     if n==1 or n%2==0:
@@ -79,9 +76,6 @@ def isPrime(n):
     return True
          
 def getMutiPrime(n):
-    """get muti num of n
-    n=num1*num2...*numx for num1...numx are all prime numbers
-    """
     if n==2:
         resultlist = [2]
     else:
@@ -113,7 +107,6 @@ def getLeastCommonMutible(numList):
     for i in numList:
         primelists.append(getMutiPrime(i))
         set1.update(set(i1 for i1 in getMutiPrime(i)))
-    #print(primelists)
     flag = True
     flag1 = False
     while flag:
@@ -138,30 +131,13 @@ def getMutil(numList):
 print(getMutil(getLeastCommonMutible([i for i in xrange(1,21)])))
 
 #by chris
-def getPrimeFactorOrg(n):
-    primfac = []
-    d = 2
-    while d*d <= n:
-        while (n % d) == 0:
-            primfac.append(d)
-            n /= d
-        d += 1
-    if n > 1:
-       primfac.append(n)
-    return primfac
-
 def getPrimeFactor(n):
     primfac = {}
     d = 2
     while d*d <= n:
         while (n % d) == 0:
-            #to opt 
             dStr = str(d)
             primfac[dStr] = (primfac[dStr] + 1) if dStr in primfac else  1
-            #if dStr in primfac:
-                #primfac[dStr] += 1
-            #else:
-                #primfac[dStr] = 1
             n /= d
         d += 1
     if n > 1:
@@ -190,6 +166,63 @@ def getLcm(seq):
 
     print int(final)
 
-#getLcm([12, 10, 30])
 getLcm([i for i in xrange(1,21)])
     
+print '\n===== 5. find latest common multiple By Recursion =======\n'
+
+#TODO check timestart and timeend
+
+def getLcmByRecursion(seq):
+    def gcd(a, b):
+        r = a % b
+        if r:
+            return gcd(b, r)
+        else: 
+            return b
+
+    def lcm(a,b):
+        return a * b/ gcd(a,b)
+
+    def lcmAll(seq):
+        return reduce(lcm, seq)
+
+    print lcmAll(seq)
+
+seq = [i for i in xrange(1,11)]
+getLcmByRecursion(seq)
+
+print '\n===== x. check Palindrome =======\n'
+
+def palindrome():
+    def checkPalindrome(n):
+        n = str(n)
+        le = len(n)
+        mid_pos = le/2
+        part1 = n[:mid_pos]
+        if le % 2 != 0:
+            mid_pos += 1
+        part2 = n[mid_pos:]
+        if part1 == part2[::-1]:
+            return True
+        else:
+            return False
+
+    x = 999
+    y = 999
+    count = 0
+    ret = []
+    retObj = {}
+    while x > 100:
+        while y > 100:
+            z = x * y
+            if checkPalindrome(z):
+                retObj[z] = [x, y]
+                ret += [z]
+                break
+            y -= 1
+        x -= 1
+        count += 1
+        y = 999 - count
+    print max(ret)
+
+#palindrome()
