@@ -162,7 +162,6 @@ def getLcm(seq):
                 if obj[attr] > ret[attr]:
                     ret[attr] = obj[attr]
 
-    print ret
     #todo use reduce and lambda
     final = 1
     #todo: why use int for math
@@ -173,12 +172,11 @@ def getLcm(seq):
 
 getLcm(SEQ)
 
-_d = {'11': 1, '13': 1, '17': 1, '19': 1,  '31': 1, '37': 1, '43':1, '29': 1, '41': 1, '3': 3, '2': 5, '5': 2, '7': 1}
-final = 1
-for p in _d:
-    final *= math.pow(int(p), _d[p])
-    
-print int(final)
+#test float calculate
+numA = 9524356075634400
+numMultiple = 43
+print 'with int  :', numA * numMultiple
+print 'with float:', int(numA * math.pow(numMultiple, 1))
 
 from timeit import timeit
 solutionChris = """
