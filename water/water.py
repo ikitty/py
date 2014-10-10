@@ -10,9 +10,9 @@ get pic of water story
 '''
 #data
 base_url = 'http://tieba.baidu.com/p/1663301114?pn='
-down_dir = './pic/'
+down_dir = './pic2/'
 
-star_list_file = './star_list.data'
+star_list_file = './star_list2.data'
 
 import pickle
 #one default arguments I gived, the other arguments should be given?
@@ -48,7 +48,7 @@ def wfile(f, content=''):
 def getAllStar(url):
     ret = []
     count = 1
-    for key in xrange(1,6):
+    for key in xrange(1,2):
         url_content = wget(url + str(key))
         #<cc><div id="post_content_20848306019" class="d_post_content j_d_post_content ">005 name<br><br><img class="BDE_Image" src="http://imgsrc.baidu.com/forum/w%3D580/sign=f05d33c3252dd42a5f0901a3333a5b2f/0dfed32a6059252df35d7bae349b033b5ab5b9dd.jpg" width="420" height="584"><br>desp<br></div><br></cc>
 
@@ -79,12 +79,19 @@ import sys
 rp_count = 0
 def rp_fn(blocknum, blocksize, totalsize):
     global rp_count
-    percent = 20.0 * blocknum * blocksize / totalsize
-    percent = 20 if int(percent)>20 else int(percent)
-    #time.sleep(1)
-    for i in range(percent - rp_count):
-        print '>',
-    rp_count = percent
+    print 1.00 * blocknum * blocksize / totalsize
+    #percent = 20.0 * blocknum * blocksize / totalsize
+    #percent = 20 if int(percent)>20 else int(percent)
+    #for i in range(percent - rp_count):
+        #print '>',
+    #rp_count = percent
+
+def dlProgress(count, blockSize, totalSize):
+    percent = int(count*blockSize*100/totalSize)
+    #sys.stdout.write("%2d%%" % percent)
+    #sys.stdout.write("\b\b\b")
+    sys.stdout.write("\r%2d%%" % percent)
+    sys.stdout.flush()
 
 def fetchImg(star_data, target):
     if not os.path.exists(target):
@@ -96,7 +103,7 @@ def fetchImg(star_data, target):
 
         print '\n';
         print '{0:-^39}'.format('Fetch ' + target + '/' + fname );
-        urllib.urlretrieve(url, target + fname, rp_fn)
+        urllib.urlretrieve(url, target + fname, dlProgress)
 
         #del star_data[index]
         print '\nGot this group, Now fetch next group \n';
