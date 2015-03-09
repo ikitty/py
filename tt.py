@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# coding:utf-8
 
 import mm
 import pprint
@@ -349,3 +350,12 @@ def hyphenTounderline(path = './index.htm'):
     #retStr = re.sub(r'\.[^{\n]*{', rep, cssStr)
     #output = './style_m.css'
     #mm.wfile(output, retStr )
+
+print '\n===== flush test =======\n'
+import sys, time
+for xx in range(10) :
+    sys.stdout.write('\r%s' % xx)
+    sys.stdout.flush()
+
+cnStr = '中文'
+print cnStr
