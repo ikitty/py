@@ -1,8 +1,8 @@
 #coding:utf-8
 import web
 
-dbname = 'todos.db'
-tname = 'todos'
+dbname = 'test.db'
+tname = 'test'
 
 db = web.database(dbn='sqlite', db=dbname)
 
