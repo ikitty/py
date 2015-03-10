@@ -1,4 +1,9 @@
 *.pyc
 *.txt
 *.data
+*.db
 *.DS_Store
+*.png
+*.jpg
+
+bleg*
